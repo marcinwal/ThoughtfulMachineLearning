@@ -21,4 +21,14 @@ print "Predcition of price of 34 diameteer is %.2f" % model.predict([29])[0]
 print "Residulal sum of squares %.2f" % np.mean((model.predict(x)-y)**2)
 
 print "variance of x is %.2f" %np.var(x)
-print "cov of x and y is %.2f" %np.cov(x,y)[0][1]
+# print "cov of x and y is %.2f" %np.cov(x,y)[0][1]
+
+def multiLinearExample():
+  from numpy.linalg import inv
+  from numpy import dot,transpose
+
+  X = [[1,6,2],[1,8,1],[1,10,0],[1,14,2],[1,18,0]]
+  y =[[7],[9],[13],[17.5],[18]]
+  print dot(inv(dot(transpose(X),X)),dot(transpose(X),y))
+
+multiLinearExample()
