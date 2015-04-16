@@ -129,9 +129,22 @@ def SGDDemo():
   regressor.fit_transform(X_train,y_train)
   print "TEST score :",regressor.score(X_test,y_test)
 
+
+def textFeatures():
+  from sklearn.feature_extraction import DictVectorizer
+  from sklearn.feature_extraction.text import CountVectorizer
+
+  corpus = {
+    'UNC played Duke in basketball',
+    'Duke lost the basketball game'
+  }
+  vectorizer = CountVectorizer()
+  print vectorizer.fit_transform(corpus).todense()
+  print vectorizer.vocabulary_
 # simpleRegressionWithChart()
 # multiLinearExample()
 # multiLinearExampleWithLeastSQR()
 # regressionWithPredictions()
 # polynomialRegression()
-SGDDemo()
+# SGDDemo()
+textFeatures()
