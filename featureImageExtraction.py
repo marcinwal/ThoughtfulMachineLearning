@@ -30,7 +30,15 @@ def featureExtractImage():
   corners = corner_peaks(corner_harris(malpa),min_distance=2)
   show_corners(corners,malpa)
 
-
+#scale invariant feature transform and spedup robust features
+#they are in mahotas library !!!!
+def SIFT_SURF():
+  import mahotas as mh 
+  from mahotas.features import surf 
+  image = mh.imread('malpa.png',as_grey=True)
+  print 'The 1st SURF descriptor is:\n',surf.surf(image)[0]
+  print 'Extracted %s SURF descriptors' %len(surf.surf([image]))
 
 # imageExtraction()
 featureExtractImage()
+SIFT_SURF()
