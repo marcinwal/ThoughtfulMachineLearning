@@ -1,5 +1,11 @@
 
 #vectorizing text and making vectors danse at the same time 
+corpus = [
+    'He ate the sandwiches',
+    'Every sandwich was eaten by him',
+    'and sandwich was nice'
+]
+
 def vectorized():
   from sklearn.feature_extraction.text import CountVectorizer
   corpus = [
@@ -19,6 +25,41 @@ def simpleLemmatizer():
   print lemmatizer.lemmatize('gathering','v')
   print lemmatizer.lemmatize('gathering','n')
 
+def lemmaComapredWithStemming():
+  from nltk.stem import PorterStemmer
+  stemmer = PorterStemmer()
+  print stemmer.stem('gathering')
+
+def lemmatize(token,tag,lemmatizer):
+  if tag[0].lower() in ['n','v']:
+    return lemmatizer.lemmatize(token,tag[0].lower())
+  return token
+
+def lemmaFull():
+  from nltk import word_tokenize
+  from nltk.stem import PorterStemmer
+  from nltk.stem.wordnet import WordNetLemmatizer
+  from nltk import pos_tag
+  wordnet_tags = ['n','v']
+  stemmer = PorterStemmer()
+  lemmatizer = WordNetLemmatizer()
+
+  print 'Stemmed:',[[stemmer.stem(token) for token in word_tokenize(document)] for 
+                   document in corpus]
+  tagged_corpus = [pos_tag(word_tokenize(document)) for document in corpus]
+  print 'Lemmatized:' ,[[lemmatize(token,tag,lemmatizer) for token,tag in document] for 
+                        document in tagged_corpus]
+
+def vectorizedWithFreq():
+  from sklearn.feature_extraction.text import CountVectorizer
+  from sklearn.feature_extraction.text import TfidfVectorizer
+  vectorizer = CountVectorizer(stop_words='english')
+  vectorizer2 = TfidfVectorizer(stop_words='english')
+  print vectorizer.fit_transform(corpus).todense()
+  print vectorizer2.fit_transform(corpus).todense()
 
 # vectorized()
-simpleLemmatizer()
+# simpleLemmatizer()
+# lemmaFull();
+vectorizedWithFreq()
+
