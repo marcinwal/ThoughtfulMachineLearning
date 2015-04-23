@@ -51,6 +51,24 @@ def confusionCheck():
   plt.xlabel('Predicted label')
   plt.show()
 
+def evaluationOfClassifier():
+  import numpy as np
+  import pandas as pd 
+  from sklearn.feature_extraction.text import TfidfVectorizer
+  from sklearn.linear_model.logistic import LogisticRegression
+  from sklearn.cross_validation import train_test_split, cross_val_score
+
+  df = pd.read_csv('data/SMSSpamCollection.csv')
+  X_train_raw, X_test_raw, y_train, y_test = \
+                    train_test_split(df['message'],df['label'])
+  vactorizer = TfidfVectorizer()
+  X_train = vactorizer.fit_transform(X_test_raw)
+  classifier = LogisticRegression()
+  classifier.fix(X_train, y_train)
+  scores = cross_val_score(classifier,X_train,y_train,cv=5)
+  print np.mean(scores),scores
+
 # readCollection()
-predictions()
-confusionCheck()
+# predictions()
+# confusionCheck()
+evaluationOfClassifier() 
