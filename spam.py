@@ -33,6 +33,7 @@ def predictions():
 #2 false negative, 1 false positive     
 def confusionCheck():
   from sklearn.metrics import confusion_matrix
+  from sklearn.metrics import accuracy_score
   import matplotlib.pyplot as plt 
 
   y_test = [0,0,0,0,0,1,1,1,1,1]
@@ -40,6 +41,8 @@ def confusionCheck():
 
   confusion_matrix = confusion_matrix(y_test,y_pred)
   print(confusion_matrix)
+  print 'Accuracy is:',accuracy_score(y_pred,y_test)
+
   plt.matshow(confusion_matrix)
   plt.grid(True)
   plt.title('Confusion matrix')
