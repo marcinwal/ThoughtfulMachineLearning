@@ -39,6 +39,17 @@ def SIFT_SURF():
   print 'The 1st SURF descriptor is:\n',surf.surf(image)[0]
   print 'Extracted %s SURF descriptors' %len(surf.surf([image]))
 
+def normalizingExample():
+  from sklearn import preprocessing 
+  import numpy as np 
+  X = np.array([
+    [0.0,4.,13.,9.,-1.,2.],
+    [0.,1.,13.,15.,10.,15.],
+    [0.,3.,15.,2.,0.,11.]
+    ])
+  print preprocessing.scale(X)
+
 # imageExtraction()
-featureExtractImage()
-SIFT_SURF()
+# featureExtractImage()
+# SIFT_SURF()
+normalizingExample()
