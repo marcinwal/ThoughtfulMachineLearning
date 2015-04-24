@@ -72,9 +72,12 @@ def evaluationOfClassifier():
 def classifierPrecission():
   import numpy as np 
   import pandas as pd 
+  import matplotlib.pyplot as plt
   from sklearn.feature_extraction.text import TfidfVectorizer
   from sklearn.linear_model.logistic import LogisticRegression
   from sklearn.cross_validation import train_test_split, cross_val_score
+  from sklearn.metrics import roc_curve, auc
+
 
   df = pd.read_csv('data/sms.csv')
   X_train_raw, X_test_raw, y_train, y_test = train_test_split \
@@ -86,8 +89,29 @@ def classifierPrecission():
   classifier.fit(X_train,y_train)
   precisions = cross_val_score(classifier,X_train,y_train,cv=5,scoring='precision')
   print 'precission:', np.mean(precisions),precisions
+
   recalls = cross_val_score(classifier,X_train,y_train,cv=5,scoring='recall')
   print 'recalls:',np.mean(recalls),recalls
+
+  #f1 = 2*PR/(P+R) for perfect should be 1 
+  f1s = cross_val_score(classifier,X_train,y_train,cv=5,scoring='f1')
+  print 'f1s:',np.mean(f1s),f1s
+
+  #ROC  Receiver operating characteristic ROC Currve clasisfier performance 
+  #its classifier recall against its fall-out 
+  #F = FP /(TN + FP)
+  predictions = classifier.predict_proba(X_test)
+  false_positive_rate,recall,thresholds = roc_curve(y_test,predictions[:,1])
+  roc_auc = auc(false_positive_rate,recall)
+  plt.title('ROC')
+  plt.plot(false_positive_rate,recall,'b',label='AUC = %0.2f' %roc_auc)
+  plt.legend(loc='lower right')
+  plt.plot([0,1],[0,1],'r--')
+  plt.xlim([0.0,1.0])
+  plt.ylim([0.0,1.0])
+  plt.ylabel('Recall')
+  plt.xlabel('fall-out')
+  plt.show()
 
 # readCollection()
 # predictions()
