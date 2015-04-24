@@ -25,7 +25,7 @@ def show_corners(corners,image):
   plt.show()
 
 def featureExtractImage():
-  malpa = io.imread('malpa.png')
+  malpa = io.imread('data/malpa.png')
   malpa = equalize_hist(rgb2gray(malpa))
   corners = corner_peaks(corner_harris(malpa),min_distance=2)
   show_corners(corners,malpa)
@@ -35,7 +35,7 @@ def featureExtractImage():
 def SIFT_SURF():
   import mahotas as mh 
   from mahotas.features import surf 
-  image = mh.imread('malpa.png',as_grey=True)
+  image = mh.imread('data/malpa.png',as_grey=True)
   print 'The 1st SURF descriptor is:\n',surf.surf(image)[0]
   print 'Extracted %s SURF descriptors' %len(surf.surf([image]))
 
