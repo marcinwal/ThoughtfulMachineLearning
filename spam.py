@@ -202,7 +202,20 @@ def movieReviewsMultiClassClassification():
   print 'accuracy:', accuracy_score(y_test,predictions)
   print 'confusion matrix:', confusion_matrix(y_test,predictions)
   print 'classifiaction report',classification_report(y_test,predictions)
-
+#like different articles in different categories so hamilton -- uk, sport etc..
+#can be split in to more classes like un and sport etc ..
+#hamming is avg fraction of incorrect labels; perfect  = 0 
+# Jaccard similarity(predicted,true) = (predicted lables and true labels)/(predicted labels or true labels)
+def multiLabelClassification():
+  import numpy as np 
+  from sklearn.metrics import hamming_loss,jaccard_similarity_score
+  print hamming_loss(np.array([[.0,1.],[1.,1.]]),np.array([[.0,1.],[1.,1.]])) #perfect 0
+  print hamming_loss(np.array([[.0,1.],[1.,1.]]),np.array([[1.0,1.],[1.,1.]]))
+  print hamming_loss(np.array([[.0,1.],[1.,1.]]),np.array([[1.0,1.],[0.,1.]]))  # 0.5 poor
+  print jaccard_similarity_score(np.array([[.0,1.],[1.,1.]]),np.array([[.0,1.],[1.,1.]]))
+  print jaccard_similarity_score(np.array([[.0,1.],[1.,1.]]),np.array([[1.0,1.],[1.,1.]]))
+  print jaccard_similarity_score(np.array([[.0,1.],[1.,1.]]),np.array([[1.0,1.],[0.,1.]])) 
+  
 # readCollection()
 # predictions()
 # confusionCheck()
@@ -210,4 +223,5 @@ def movieReviewsMultiClassClassification():
 # classifierPrecission()
 # gridSearchCV()
 # movieReviewsMultiClassClassification()
-movieReviewsMultiClassClassification()
+# movieReviewsMultiClassClassification()
+multiLabelClassification()
