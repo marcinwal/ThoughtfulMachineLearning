@@ -1,3 +1,7 @@
+
+#prety open and easy yo use even with missing data
+#prone to overfitting
+#one can use tree regressoe and create random trees to reduce over fitting 
 def decisionTree():
   import pandas as pd 
   from sklearn.tree import DecisionTreeClassifier
