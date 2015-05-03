@@ -56,6 +56,42 @@ def clustersEval():
       plt.title('K = %s, silhoutte coefficient = %.03f' % (t,metrics.silhouette_score(X,kmeans_model.labels_,metric='euclidean')))
   plt.show()
 
+def imageQuant():
+  import numpy as np 
+  import matplotlib.pyplot as plt 
+  from sklearn.cluster import KMeans
+  from sklearn.utils import shuffle
+  import mahotas as mh 
 
-clustersEval()
+
+  original_img = np.array(mh.imread('./data/malpa.png'),dtype=np.float64)/255
+  original_dimension = tuple(original_img.shape)
+  width,height,depth = tuple(original_img.shape)
+  image_flattened = np.reshape(original_img,(width*height,depth))
+  #K-means culsters from sample of 1000 selected colors; 
+  image_array_sample = shuffle(image_flattened,random_state=0)
+  estimator = KMeans(n_clusters=64,random_state=0)
+  estimator.fit(image_array_sample)
+  #predictions of clsters for each pixels of orig image
+  cluster_assignments = estimator.predict(image_flattened)
+  compressed_palette - estimator.cluster_centers_
+  compressed_img = np.zeros((width.height,compressed_palette.shape[1]))
+  label_idx = 0
+  for i in range(width):
+    for j in range(height):
+      compressed_img[i][j] = compressed_palette[cluster_assignments[label_idx]]
+      label_idx += 1
+  plt.subplot(122)
+  plt.title('original_img')
+  plt.imshow(original_img)
+  plt.axis('off')
+  plt.subplot(121)
+  plt.title('compressed_img')
+  plt.imshow(compressed_img)
+  plt.axis('off')
+  plt.show()
+
+
+# clustersEval()
+imageQuant()
 
