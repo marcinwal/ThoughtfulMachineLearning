@@ -69,13 +69,13 @@ def imageQuant():
   width,height,depth = tuple(original_img.shape)
   image_flattened = np.reshape(original_img,(width*height,depth))
   #K-means culsters from sample of 1000 selected colors; 
-  image_array_sample = shuffle(image_flattened,random_state=0)
+  image_array_sample = shuffle(image_flattened,random_state=0)[:1000]
   estimator = KMeans(n_clusters=64,random_state=0)
   estimator.fit(image_array_sample)
   #predictions of clsters for each pixels of orig image
   cluster_assignments = estimator.predict(image_flattened)
-  compressed_palette - estimator.cluster_centers_
-  compressed_img = np.zeros((width.height,compressed_palette.shape[1]))
+  compressed_palette = estimator.cluster_centers_
+  compressed_img = np.zeros((width,height,compressed_palette.shape[1]))
   label_idx = 0
   for i in range(width):
     for j in range(height):
