@@ -9,7 +9,7 @@ def simpleCov():
        [2.4,0.1,-1.],
        [1.9,0.0,-1.2]]
 
-  print np.cov(np.array(X))
+  print np.cov(np.array(X).T)
 
 def eigenCheck():
   import numpy as np 
